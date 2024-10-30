@@ -12,9 +12,67 @@
 </head>
 <body>
     <div id="app"> 
-        <div class="nav-bar"></div>
-    
-        <h1>{{intro}}</h1>
+            
+        <header class="app-header">
+            <h1>{{intro}}</h1>
+        </header>
+
+        <main class="content">    
+            <section class="input">
+            <form @submit.prevent="calculateDough">
+                <div>
+                    <label for="fermentation">Fermenteringsmetode </label>
+                    <select v-model="fermentation">
+                        <option value="direct">Direkte</option>
+                        <option value="biga">Biga</option>
+                        <option value="poolish">Poolish</option>
+                    </select>
+                </div>
+                <div></div>
+
+                <div>
+                <label for="pizzaSize">Pizza størrelse </label>
+                    <select v-model="pizzaSize">
+                        <option value="250">14"</option>
+                        <option value="300">16"</option>
+                    </select>
+                </div>
+                <div></div>
+
+                <div>
+                    <label for="pizzas">Antal pizzaer </label>
+                    <input type="number" v-model="pizzas" min="1" required>
+                </div>
+                <div></div>
+                
+
+                <div>
+                    <label for="hydration">Hydration (%) </label>
+                    <input type="number" v-model="hydration" min="50" max="100" required>
+                </div>
+                <div></div>
+                
+
+                <button type="submit"> Beregn Ingredienser </button>
+            </form>
+            </section>
+
+            <section v-if="result" class="ingredients">
+                <h2>Ingredienser</h2>
+                <p>Mel: {{result.flour}} gr.</p>
+                <p>Vand: {{result.water}} gr.</p>
+                <p>Gær: {{result.yeast}} gr.</p>
+                <p>Salt: {{result.salt}} gr.</p>
+            </section>
+
+
+            <section v-if="methodSteps.length" class="instructions">
+                <h2>Fremgangsmåde</h2>
+                <p v-for="(step, index) in methodSteps" :key="index">{{ step }}</p>
+            </section>
+        
+
+        </main>
 
     </div>
     

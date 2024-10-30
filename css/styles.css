@@ -1,3 +1,94 @@
-h1 {
-     font-size: 50px; color: blue; 
-}
+/* Reset CSS: Fjerner standard marginer og padding */
+* {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+ }
+ 
+ /* Body styling: Centerer indholdet og sætter baggrundsfarve */
+ body {
+     font-family: Arial, sans-serif;
+     background-color: #f9f9f9;
+     color: #333; /* Standard tekstfarve */
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     min-height: 100vh; /* Fylder hele skærmhøjden */
+ }
+ 
+ /* App container: Maksimal bredde og centreret layout */
+ #app {
+     max-width: 500px;
+     padding: 20px;
+     background-color: #fff;
+     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Let skyggeeffekt */
+     border-radius: 8px; /* Bløde hjørner */
+ }
+ 
+ /* Header styling: Titel med centreret tekst og markant farve */
+ .app-header h1 {
+     text-align: center;
+     font-size: 24px;
+     color: #ff6600; /* Fremhæv titel med orange farve */
+     margin-bottom: 20px;
+ }
+ 
+ /* Content styling: Lodret layout med plads mellem elementer */
+ .content {
+     display: flex;
+     flex-direction: column;
+     gap: 20px;
+ }
+ 
+ /* Label styling: Fed og lysere tekstfarve */
+ label {
+     font-weight: bold;
+     color: #666;
+ }
+ 
+ /* Input felter og dropdowns */
+ input[type="number"],
+ select {
+     padding: 12px;
+     font-size: 16px;
+     border: 1px solid #ddd; /* Lys grå kant */
+     border-radius: 4px; /* Bløde hjørner */
+     height: 44px;
+     margin-bottom: 15px;
+     
+ }
+ 
+ /* Fokusstil: Fremhæv kantfarve ved fokus */
+ input[type="number"]:focus,
+ select:focus {
+     border-color: #ff6600;
+     outline: none; /* Fjern standard fokusramme */
+ }
+ 
+ /* Knap styling: Orange baggrund og hover-effekt */
+ .submit-button {
+     background-color: #ff6600;
+     color: #fff;
+     padding: 12px;
+     font-size: 16px;
+     font-weight: bold;
+     border: none;
+     border-radius: 6px; /* Bløde hjørner */
+     cursor: pointer;
+     transition: background-color 0.3s ease, transform 0.2s ease;
+ }
+ 
+ /* Hover-effekt på knappen */
+ .submit-button:hover {
+     background-color: #cc5200; /* Mørkere orange ved hover */
+     transform: scale(1.05); /* Let forstørrelse ved hover */
+ }
+ 
+ /* Sektioner til ingredienser og instruktioner */
+ .ingredients, .instructions, .input {
+     background-color: #fafafa;
+     padding: 15px;
+     border-radius: 8px; /* Bløde hjørner */
+     border: 1px solid #eee; /* Lys kant for adskillelse */
+ }
+ 
