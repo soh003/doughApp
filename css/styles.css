@@ -32,6 +32,8 @@
      color: #ff6600; /* Fremhæv titel med orange farve */
      margin-bottom: 20px;
  }
+
+
  
  /* Content styling: Lodret layout med plads mellem elementer */
  .content {
@@ -85,7 +87,7 @@
  }
  
  /* Sektioner til ingredienser og instruktioner */
- .ingredients, .instructions, .input {
+ .ingredients, .instructions, .input, .favoritter {
      background-color: #fafafa;
      padding: 15px;
      border-radius: 8px; /* Bløde hjørner */

@@ -50,10 +50,10 @@ const app = Vue.createApp({
             } else if (this.fermentation === 'biga'){
                 this.fermentationText = 'Biga';
                 this.methodSteps=[
-                    `Kombinér al melet (${this.result.flour} g) med præcis 50% af melets vægt i vand (${this.result.flour * 0.5} g) samt gæren (${this.result.yeast} g). Bland grundigt med hænderne eller en gaffel, indtil alt melet er absorberet og dejen har en let smuldrende konsistens.`,
-'Lad bigaen fermentere i 1-2 timer ved stuetemperatur, og sæt den derefter på køl til næste dag.',
-`Næste dag tilsættes det resterende vand (${this.result.water - this.result.flour * 0.5} g) samt saltet (${this.result.salt} g), og dejen æltes grundigt, indtil den er glat og elastisk.`,
-'Form dejen til individuelle boller eller lad den fermentere yderligere i køleskabet, afhængigt af den ønskede smagsudvikling og tekstur.'
+                    `1. Kombinér al melet (${this.result.flour} g) med præcis 50% af melets vægt i vand (${this.result.flour * 0.5} g) samt gæren (${this.result.yeast} g). Bland grundigt med hænderne eller en gaffel, indtil alt melet er absorberet og dejen har en let smuldrende konsistens.`,
+'2. Lad bigaen fermentere i 1-2 timer ved stuetemperatur, og sæt den derefter på køl til næste dag.',
+`3. Næste dag tilsættes det resterende vand (${this.result.water - this.result.flour * 0.5} g) samt saltet (${this.result.salt} g), og dejen æltes grundigt, indtil den er glat og elastisk.`,
+'4. Form dejen til individuelle boller eller lad den fermentere yderligere i køleskabet, afhængigt af den ønskede smagsudvikling og tekstur.'
 
                 ];
             } else if (this.fermentation === 'poolish') {
