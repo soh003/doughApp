@@ -1,94 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta og imports -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!--Import styles-->
+    <title>World Of Dough</title>
+    <!-- Import af styles -->
     <link rel="stylesheet" href="./css/styles.css" />
-    <title>Vue Template</title>
-    <!--import Vue.js-->
+    <!-- Import af Vue.js -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
     <div id="app"> 
-
-        <section class="favoritter">
-            <h2> Favoritter </h2>
-            
-
-        </section>
-            
         <header class="app-header">
-            <h1>{{intro}}</h1>
+            <h1>{{ intro }}</h1>
         </header>
 
         <main class="content">    
             <section class="input">
-            <form @submit.prevent="calculateDough">
-                <div>
-                    <label for="fermentation">Fermenteringsmetode </label>
-                    <select v-model="fermentation">
-                        <option value="direct">Direkte</option>
-                        <option value="biga">Biga</option>
-                        <option value="poolish">Poolish</option>
-                    </select>
-                </div>
-                <div></div>
+                <form>
+                    <div>
+                        <label for="fermentation">Fermenteringsmetode</label>
+                        <select v-model="fermentation">
+                            <option value="direct">Direkte</option>
+                            <option value="biga">Biga</option>
+                            <option value="poolish">Poolish</option>
+                        </select>
+                    </div>
 
-                <div>
-                <label for="pizzaSize">Pizza størrelse </label>
-                    <select v-model="pizzaSize">
-                        <option value="250">14"</option>
-                        <option value="300">16"</option>
-                    </select>
-                </div>
-                <div></div>
+                    <div>
+                        <label for="pizzaSize">Pizza størrelse</label>
+                        <select v-model="pizzaSize">
+                            <option value="250">14"</option>
+                            <option value="300">16"</option>
+                        </select>
+                    </div>
 
-                <div>
-                    <label for="pizzas">Antal pizzaer </label>
-                    <input type="number" v-model="pizzas" min="1" required>
-                </div>
-                <div></div>
-                
+                    <div>
+                        <label for="pizzas">Antal pizzaer</label>
+                        <input type="number" v-model.number="pizzas" min="1" required>
+                    </div>
 
-                <div>
-                    <label for="hydration">Hydration (%) </label>
-                    <input type="number" v-model="hydration" min="50" max="100" required>
-                </div>
-                <div></div>
-                
+                    <div>
+                        <label for="hydration">Hydration (%)</label>
+                        <input type="number" v-model.number="hydration" min="50" max="100" required>
+                    </div>
 
-                <button type="submit"> Beregn Ingredienser </button>
-            </form>
+                    <button type="button" v-on:click="addToFavorites">Tilføj til Favoritter</button>
+                </form>
             </section>
 
-            <section v-if="result" class="ingredients">
+            <section class="ingredients">
                 <h2>Ingredienser</h2>
-                <p>Mel: {{result.flour}} gr.</p>
-                <p>Vand: {{result.water}} gr.</p>
-                <p>Gær: {{result.yeast}} gr.</p>
-                <p>Salt: {{result.salt}} gr.</p>
+                <p>Mel: {{ ingredients.flour }} gr.</p>
+                <p>Vand: {{ ingredients.water }} gr.</p>
+                <p>Gær: {{ ingredients.yeast }} gr.</p>
+                <p>Salt: {{ ingredients.salt }} gr.</p>
             </section>
 
-
-            <section v-if="methodSteps.length" class="instructions">
+            <section class="instructions">
                 <h2>Fremgangsmåde</h2>
-                <p v-for="(step, index) in methodSteps" :key="index">{{ step }}</p>
+                <p v-for="(step, index) in methodSteps" v-bind:key="index">{{ step }}</p>
             </section>
-        
 
+            <!-- Filter inputs -->
+            <div class="filters">
+                <label for="filterPizzas">Antal pizzaer:</label>
+                <input type="number" v-model.number="filterPizzas" min="1">
+
+                <label for="filterFermentation">Fermenteringsmetode:</label>
+                <select v-model="filterFermentation">
+                    <option value="">Alle</option>
+                    <option value="direct">Direkte</option>
+                    <option value="biga">Biga</option>
+                    <option value="poolish">Poolish</option>
+                </select>
+            </div>
+            <!--liste af filtrerede favoritter-->
+            <section class="favoritter" v-if="favorites.length">
+                <h2>Favoritter</h2>
+                <div v-for="(favorite, index) in filteredFavorites" v-bind:key="index" class="favorite-item">
+                    <h3>Favorit {{ index + 1 }}</h3>
+                    <p>Fermentering: {{ favorite.fermentation }}</p>
+                    <p>Pizza størrelse: {{ favorite.pizzaSize }}</p>
+                    <p>Antal pizzaer: {{ favorite.pizzas }}</p>
+                    <p>Hydration: {{ favorite.hydration }}%</p>
+                    <h4>Ingredienser:</h4>
+                    <p>Mel: {{ favorite.ingredients.flour }} gr.</p>
+                    <p>Vand: {{ favorite.ingredients.water }} gr.</p>
+                    <p>Gær: {{ favorite.ingredients.yeast }} gr.</p>
+                    <p>Salt: {{ favorite.ingredients.salt }} gr.</p>
+                    <h4>Fremgangsmåde:</h4>
+                    <p v-for="(step, sIndex) in favorite.methodSteps" v-bind:key="sIndex">{{ step }}</p>
+                    <button v-on:click="removeFromFavorites(index)">Fjern fra Favoritter</button>
+                </div>
+            </section>
         </main>
-
     </div>
-    
-<!--Import App-->
-<script src="./js/main.js"></script>
 
-<!--Mount App-->
+    <!-- Import af main.js -->
+    <script src="./js/main.js"></script>
+    <!-- Mount af appen -->
     <script>
-    const mountedApp = app.mount('#app')
+        const mountedApp = app.mount('#app')
     </script>
-    
 </body>
 </html>

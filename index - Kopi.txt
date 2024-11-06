@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!--Import styles-->
+    <link rel="stylesheet" href="./css/styles.css" />
+    <title>Vue Template</title>
+    <!--import Vue.js-->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app"> 
+
+        
+        <header class="app-header">
+            <h1>{{intro}}</h1>
+        </header>
+
+        <main class="content">    
+            <section class="input">
+            <form v-on: submit.prevent="calculateDough">
+                <div>
+                    <label for="fermentation">Fermenteringsmetode </label>
+                    <select v-model="fermentation">
+                        <option value="direct">Direkte</option>
+                        <option value="biga">Biga</option>
+                        <option value="poolish">Poolish</option>
+                    </select>
+                </div>
+                <div></div>
+
+                <div>
+                <label for="pizzaSize">Pizza størrelse </label>
+                    <select v-model="pizzaSize">
+                        <option value="250">14"</option>
+                        <option value="300">16"</option>
+                    </select>
+                </div>
+                <div></div>
+
+                <div>
+                    <label for="pizzas">Antal pizzaer </label>
+                    <input type="number" v-model="pizzas" min="1" required>
+                </div>
+                <div></div>
+                
+
+                <div>
+                    <label for="hydration">Hydration (%) </label>
+                    <input type="number" v-model="hydration" min="50" max="100" required>
+                </div>
+                <div></div>
+                
+                <!-- Knappen til at udløse beregning af ingredienser -->
+
+                <button type="submit"> Beregn Ingredienser </button>
+            </form>
+            </section>
+
+            <!-- Sektion der viser ingredienserne, hvis de er beregnet -->
+
+            <section v-if="result" class="ingredients">
+                <h2>Ingredienser</h2>
+                <p>Mel: {{result.flour.tofixed(0)}} gr.</p>
+                <p>Vand: {{result.water.tofixed(0)}} gr.</p>
+                <p>Gær: {{result.yeast.tofixed(1)}} gr.</p>
+                <p>Salt: {{result.salt.tofixed(1)}} gr.</p>
+            </section>
+
+
+            <section v-if="methodSteps.length" class="instructions">
+                <h2>Fremgangsmåde</h2>
+                <p v-for="(step, index) in methodSteps" :key="index">{{ step }}</p>
+                <div></div>
+
+                
+                <button type="button" v-on: click="addToFavorites">Gem til favoritter</button>
+            </section>
+
+            <div></div>
+        
+
+        </main>
+
+        <header class="app-header">
+            <h1>{{overskrift2}}</h1>
+        </header>
+
+        <section class="favoritter">
+            <h2>Favoritter</h2>
+            <div v-for="(favorite, index) in favorites" :key="index">
+                <h3>Opskrift {{ index + 1 }} - {{ favorite.fermentation }}</h3>
+                <h4>Ingredienser:</h4>
+                <p>Mel: {{ favorite.ingredients.flour }} gr.</p>
+                <p>Vand: {{ favorite.ingredients.water }} gr.</p>
+                <p>Gær: {{ favorite.ingredients.yeast }} gr.</p>
+                <p>Salt: {{ favorite.ingredients.salt }} gr.</p>
+                <h4>Fremgangsmåde:</h4>
+                <p v-for="(step, stepIndex) in favorite.steps" :key="stepIndex">{{ step }}</p>
+            </div>
+            
+
+        </section>
+
+    </div>
+    
+<!--Import App-->
+<script src="./js/main.js"></script>
+
+<!--Mount App-->
+    
+    
+</body>
+</html>
